@@ -12,16 +12,16 @@ public class FileIO : MonoBehaviour {
         string finalFilePath = Application.dataPath + "/" + fileName;
         StreamWriter sw = new StreamWriter(finalFilePath, true);
 
-        sw.WriteLine("Gordon's Score is: " + ScoreManager.instance.Score);
+        //sw.WriteLine("Gordon's Score is: " + ScoreManager.instance.Score);
 
         sw.Close();
 
         StreamReader sr = new StreamReader(finalFilePath);
 
-        while (!sr.EndOfStream) {
+        /*while (!sr.EndOfStream) {
             Debug.Log(sr.ReadLine());
         }
-        sr.Close();
+        sr.Close();*/
     }
 	
 	// Update is called once per frame

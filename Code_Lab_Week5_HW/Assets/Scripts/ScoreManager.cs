@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour {
+    public Text score;
 
     private const string PLAYER_PREF_TEST_KEY = "test";
 
@@ -61,5 +63,8 @@ public class ScoreManager : MonoBehaviour {
         //PlayerPrefs.SetString(PLAYER_PREF_TEST_KEY, "This is a test");
 
         //Debug.Log(PlayerPrefs.GetString(PLAYER_PREF_TEST_KEY));
-	}
+
+        score.text = "Score: " + Score.ToString();
+
+    }
 }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 718b1115a0efd634f950e04d63cf145b
-timeCreated: 1488252387
+guid: aaeb460dc8d452a488c21a24c296ec96
+timeCreated: 1488323455
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pSphere1
+    4300000: Balloon
   materials:
     importMaterials: 1
     materialName: 0

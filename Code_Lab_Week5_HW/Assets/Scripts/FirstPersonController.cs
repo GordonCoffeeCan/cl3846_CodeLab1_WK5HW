@@ -6,6 +6,7 @@ public class FirstPersonController : MonoBehaviour {
 	public float rotationSpeed = 8;
     public Transform _weaponPivot;
     public Animator pistolAnim;
+    public Transform balloonParticle;
 
     public static Vector3 playerPosition;
 
@@ -46,6 +47,12 @@ public class FirstPersonController : MonoBehaviour {
                     Destroy(_rayHit.collider.gameObject);
                     TargetSpawner.isTargetSpawned = false;
                     ScoreManager.instance.Score++;
+                }
+
+                if (_rayHit.collider.tag == "Balloon") {
+                    Destroy(_rayHit.collider.gameObject);
+                    Instantiate(balloonParticle, _rayHit.point, Quaternion.Euler(_rayHit.collider.transform.eulerAngles));
+                    ScoreManager.instance.Score--;
                 }
             }
         }

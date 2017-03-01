@@ -15,7 +15,7 @@ public class TargetSpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (isTargetSpawned == false) {
-            Instantiate(Target, new Vector3(Random.Range(-13, 13), Random.Range(6.5f, 12), Random.Range(-13, 13)), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+            //Instantiate(Target, new Vector3(Random.Range(-13, 13), Random.Range(6.5f, 12), Random.Range(-13, 13)), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
             isTargetSpawned = true;
         }
 	}
