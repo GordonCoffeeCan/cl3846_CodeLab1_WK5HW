@@ -19,6 +19,8 @@ public class LevelLoader : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _levelHolder = new GameObject("Level Holder");
+        
+        SettLevel();
     }
 	
 	// Update is called once per frame
@@ -27,45 +29,37 @@ public class LevelLoader : MonoBehaviour {
             //levelNum++;
             SceneManager.LoadScene("Main");
         }*/
-
-        if (isLevelSet == false) {
-            SettLevel();
-            isLevelSet = true;
-        }
 	}
 
     private void SettLevel() {
-        levelNum = Random.Range(0, 5);
-        string fileName = fileNames[levelNum];
-        string filePath = Application.dataPath + "/" + fileName;
-        StreamReader sr = new StreamReader(filePath);
-        int yPos = 0;
+        
+        levelNum = 0;
+        
 
-        while (!sr.EndOfStream) {
-            string line = sr.ReadLine();
+        for (int i = 0; i < 3; i++) {
+            string fileName = fileNames[levelNum];
+            string filePath = Application.dataPath + "/" + fileName;
+            StreamReader sr = new StreamReader(filePath);
+            int yPos = 0;
+            while (!sr.EndOfStream) {
+                string line = sr.ReadLine();
 
-            for (int xPos = 0; xPos < line.Length; xPos++) {
-                if (line[xPos] == 'x') {
-                    GameObject _balloon = Instantiate(Resources.Load("Prefabs/Balloon") as GameObject);
-                    Rigidbody _balloonRig = _balloon.GetComponent<Rigidbody>();
-                    _balloonRig.AddForce(new Vector3(Random.Range(-2, 2), Random.Range(10, 16), Random.Range(-2, 2)), ForceMode.Impulse);
-                    _balloonRig.AddTorque(new Vector3(Random.Range(-2, 2), Random.Range(3, 5), Random.Range(-2, 2)), ForceMode.Impulse);
-                    _balloon.transform.parent = _levelHolder.transform;
-
-                    _balloon.transform.position = new Vector3(xPos + offSetX, 0.5f, yPos + offSetY);
-                } else if (line[xPos] == 'p') {
-                    GameObject _target = Instantiate(Resources.Load("Prefabs/Target") as GameObject);
-                    Rigidbody _targetRig = _target.GetComponent<Rigidbody>();
-                    _targetRig.AddForce(new Vector3(Random.Range(-2, 2), Random.Range(10, 16), Random.Range(-2, 2)), ForceMode.Impulse);
-                    _targetRig.AddTorque(new Vector3(Random.Range(-2, 2), Random.Range(3, 5), Random.Range(-2, 2)), ForceMode.Impulse);
-                    _target.transform.parent = _levelHolder.transform;
-                    _target.transform.position = new Vector3(xPos + offSetX, 0.5f, yPos + offSetY);
+                for (int xPos = 0; xPos < line.Length; xPos++) {
+                    if (line[xPos] == 'x') {
+                        GameObject _wall = Instantiate(Resources.Load("Prefabs/Wall") as GameObject);
+                        _wall.transform.position = new Vector3(xPos + offSetX, i + 0.5f, yPos + offSetY);
+                    } else if (line[xPos] == 't' && i == 0) {
+                        GameObject _target = Instantiate(Resources.Load("Prefabs/Target") as GameObject);
+                        Rigidbody _targetRig = _target.GetComponent<Rigidbody>();
+                        
+                        _target.transform.position = new Vector3(xPos + offSetX, 0.5f, yPos + offSetY);
+                    }
                 }
+
+                yPos--;
+
             }
-
-            yPos--;
-
+            sr.Close();
         }
-        sr.Close();
     }
 }

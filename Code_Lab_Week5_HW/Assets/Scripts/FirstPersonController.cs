@@ -7,6 +7,7 @@ public class FirstPersonController : MonoBehaviour {
     public Transform _weaponPivot;
     public Animator pistolAnim;
     public Transform balloonParticle;
+    public Transform bulletShellPivot;
 
     public static Vector3 playerPosition;
 
@@ -37,9 +38,10 @@ public class FirstPersonController : MonoBehaviour {
             pistolAnim.SetBool("isFire", true);
             pistolShootAuido.Play();
 
-            
+            CreatShell();
 
-            _ray = new Ray(_mainCamera.position, _mainCamera.forward);
+
+             _ray = new Ray(_mainCamera.position, _mainCamera.forward);
             RaycastHit _rayHit = new RaycastHit();
 
             if (Physics.Raycast(_ray, out _rayHit)) {
@@ -98,5 +100,13 @@ public class FirstPersonController : MonoBehaviour {
             _moveDirection = _transfrom.TransformDirection(_moveDirection);
             _moveDirection *= speed;
         }
+    }
+
+    private void CreatShell() {
+        Rigidbody _shell = Instantiate(Resources.Load("Prefabs/Pistol_Bullet_Shell") as GameObject, bulletShellPivot.position, Quaternion.Euler(bulletShellPivot.rotation.eulerAngles)).GetComponent<Rigidbody>();
+        Physics.IgnoreCollision(_characterController, _shell.GetComponent<Collider>());
+        _shell.velocity = new Vector3(_characterController.velocity.x, _shell.velocity.y, _characterController.velocity.z);
+        _shell.AddRelativeForce(new Vector3(Random.Range(2.5f, 5.5f), Random.Range(1.5f, 2), Random.Range(-1.5f, 0)), ForceMode.Impulse);
+        _shell.AddRelativeTorque(new Vector3(Random.Range(3, 25), Random.Range(60, 100), Random.Range(5, 8)), ForceMode.Impulse);
     }
 }
